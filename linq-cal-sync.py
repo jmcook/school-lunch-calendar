@@ -75,7 +75,7 @@ for session in menu_data.get("FamilyMenuSessions", []):
                     if lunch_items:
                         # Create an all-day event
                         event = Event()
-                        event.name = "School Lunch - Main Entree"
+                        event.name = f"School Lunch - Main Entree ({date.strftime('%Y-%m-%d')}: {', '.join(lunch_items)})"
                         event.begin = date  # All-day event (no specific time)
                         event.description = "\n".join(lunch_items)
 
@@ -91,4 +91,3 @@ with open(ics_filename, 'w') as f:
 
 print(f"ICS file generated: {ics_filename}")
 print(f"Total events added: {event_count}")
-
