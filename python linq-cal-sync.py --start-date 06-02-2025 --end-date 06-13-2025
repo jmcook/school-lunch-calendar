@@ -1,0 +1,2 @@
+
+This will fetch the lunch menu for the specified date range and generate a `school_lunch_menu.ics` file that can be imported into Google Calendar or other calendar apps.

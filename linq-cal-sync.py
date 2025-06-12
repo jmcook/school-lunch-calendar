@@ -1,14 +1,21 @@
 #!python3
 
+import argparse
 import requests
 from ics import Calendar, Event
 from datetime import datetime
 import json
 import pytz
 
-# User-defined variables
-start_date = "6-02-2025"  # Change as needed
-end_date = "6-13-2025"   # Change as needed
+# Parse command-line arguments
+parser = argparse.ArgumentParser(description="Fetch school lunch menu from LinqConnect and generate ICS calendar.")
+parser.add_argument("--start-date", required=True, help="Start date in MM-DD-YYYY format (e.g., 06-02-2025)")
+parser.add_argument("--end-date", required=True, help="End date in MM-DD-YYYY format (e.g., 06-13-2025)")
+args = parser.parse_args()
+
+# User-defined variables from command line
+start_date = args.start_date
+end_date = args.end_date
 building_id = "816d4352-8ada-eb11-a2c4-babb11d0075f"  # Change as needed
 district_id = "c48c6d9c-9ad9-eb11-a2c4-ae34736f1064"  # Change as needed
 
