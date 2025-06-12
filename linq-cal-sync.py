@@ -11,16 +11,16 @@ from typing import Optional, Dict, Any, List
 def parse_arguments() -> argparse.Namespace:
     """Parse command-line arguments."""
     parser = argparse.ArgumentParser(description="Fetch school lunch menu from LinqConnect and generate ICS calendar.")
-    parser.add_argument("--start-date", required=True, help="Start date in MM-DD-YYYY format (e.g., 06-02-2025)")
-    parser.add_argument("--end-date", required=True, help="End date in MM-DD-YYYY format (e.g., 06-13-2025)")
+    parser.add_argument("--start-date", required=True, help="Start date in MM/DD/YYYY format (e.g., 06/02/2025)")
+    parser.add_argument("--end-date", required=True, help="End date in MM/DD/YYYY format (e.g., 06/13/2025)")
     return parser.parse_args()
 
 def validate_date(date_str: str) -> Optional[datetime.date]:
-    """Validate and parse a date string in MM-DD-YYYY format."""
+    """Validate and parse a date string in MM/DD/YYYY format."""
     try:
-        return datetime.strptime(date_str, '%m-%d-%Y').date()
+        return datetime.strptime(date_str, '%m/%d/%Y').date()
     except ValueError:
-        print(f"Invalid date format: {date_str}. Please use MM-DD-YYYY format.")
+        print(f"Invalid date format: {date_str}. Please use MM/DD/YYYY format.")
         return None
 
 def fetch_lunch_menu(
