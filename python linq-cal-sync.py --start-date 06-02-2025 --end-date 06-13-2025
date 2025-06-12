@@ -1,2 +1,8 @@
 
-This will fetch the lunch menu for the specified date range and generate a `school_lunch_menu.ics` file that can be imported into Google Calendar or other calendar apps.
+This will:
+- Fetch lunch data from the LinqConnect API.
+- Generate a `school_lunch_menu.ics` file in the current directory.
+- Print a summary of events added to the calendar.
+
+## License
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
