@@ -77,7 +77,7 @@ for session in menu_data.get("FamilyMenuSessions", []):
                         event = Event()
                         event.name = f"School Lunch - Main Entree ({date.strftime('%Y-%m-%d')}: {', '.join(lunch_items)})"
                         event.begin = date  # All-day event (no specific time)
-                        event.description = "\n".join(lunch_items)
+                        event.description = "Lunch"  # Only include meal type in description
 
                         # Add the event to the calendar
                         event.make_all_day()
