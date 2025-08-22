@@ -46,12 +46,17 @@ if not all([start_date, end_date, building_id, district_id]):
 def parse_date_range(start_date_str, end_date_str):
     """
     Parse date range from command line arguments.
-    Supports MM-DD-YYYY format and relative durations (1m, 2w, 5d).
+    Supports MM-DD-YYYY format, relative durations (1m, 2w, 5d), and special values (today, tomorrow).
     """
     today = datetime.now().date()
+    tomorrow = today + timedelta(days=1)
     
-    # Check if start_date is a relative duration
-    if re.match(r'^\d+[dwmy]$', start_date_str.lower()):
+    # Handle special cases for start_date
+    if start_date_str.lower() == 'today':
+        start_date = today
+    elif start_date_str.lower() == 'tomorrow':
+        start_date = today
+    elif re.match(r'^\d+[dwmy]$', start_date_str.lower()):
         # Duration specified, start from today
         duration = start_date_str.lower()
         number = int(duration[:-1])
@@ -71,12 +76,17 @@ def parse_date_range(start_date_str, end_date_str):
             end_date = today + timedelta(days=number * 365)
             
         return start_date.strftime('%m-%d-%Y'), end_date.strftime('%m-%d-%Y')
-    
-    # Check if end_date is a relative duration
-    elif re.match(r'^\d+[dwmy]$', end_date_str.lower()):
-        # Parse start_date as MM-DD-YYYY
+    else:
+        # Parse as MM-DD-YYYY
         start_date = datetime.strptime(start_date_str, '%m-%d-%Y').date()
-        
+    
+    # Handle special cases for end_date
+    if end_date_str.lower() == 'today':
+        end_date = today
+    elif end_date_str.lower() == 'tomorrow':
+        end_date = tomorrow
+    elif re.match(r'^\d+[dwmy]$', end_date_str.lower()):
+        # Parse duration from start_date
         duration = end_date_str.lower()
         number = int(duration[:-1])
         unit = duration[-1]
@@ -93,9 +103,11 @@ def parse_date_range(start_date_str, end_date_str):
             end_date = start_date + timedelta(days=number * 365)
             
         return start_date_str, end_date.strftime('%m-%d-%Y')
+    else:
+        # Parse as MM-DD-YYYY
+        end_date = datetime.strptime(end_date_str, '%m-%d-%Y').date()
     
-    # Both dates are in MM-DD-YYYY format
-    return start_date_str, end_date_str
+    return start_date.strftime('%m-%d-%Y'), end_date.strftime('%m-%d-%Y')
 
 # Parse and validate date range
 start_date, end_date = parse_date_range(start_date, end_date)

@@ -30,7 +30,7 @@ Or use a configuration file (default: `config.yaml`):
 python linq-cal-sync.py --config config.yaml
 ```
 
-You can also use relative durations:
+You can also use relative durations and special date values:
 
 ```bash
 # Get lunch menu for the next month (starting today)
@@ -38,6 +38,9 @@ python linq-cal-sync.py --start-date 1m --end-date 1m --building-id YOUR_BUILDIN
 
 # Get lunch menu for next 2 weeks from a specific start date
 python linq-cal-sync.py --start-date 08-21-2025 --end-date 2w --building-id YOUR_BUILDING_ID --district-id YOUR_DISTRICT_ID
+
+# Get lunch menu for today and tomorrow
+python linq-cal-sync.py --start-date today --end-date tomorrow --building-id YOUR_BUILDING_ID --district-id YOUR_DISTRICT_ID
 ```
 
 Command-line arguments take precedence over configuration file values.

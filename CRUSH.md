@@ -17,6 +17,9 @@ python linq-cal-sync.py --start-date 1m --end-date 1m --building-id 816d4352-8ad
 # Run script with start date and relative duration
 python linq-cal-sync.py --start-date 08-21-2025 --end-date 2w --building-id 816d4352-8ada-eb11-a2c4-babb11d0075f --district-id c48c6d9c-9ad9-eb11-a2c4-ae34736f1064
 
+# Run with special date values
+python linq-cal-sync.py --start-date today --end-date tomorrow --building-id 816d4352-8ada-eb11-a2c4-babb11d0075f --district-id c48c6d9c-9ad9-eb11-a2c4-ae34736f1064
+
 # Run with custom config file
 python linq-cal-sync.py --config my_config.yaml
 
