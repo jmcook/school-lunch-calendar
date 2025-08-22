@@ -14,7 +14,7 @@ This script fetches school lunch menus from the LinqConnect API for a specified 
 1. **Python 3**: Ensure Python 3 is installed on your system.
 2. **Install dependencies**:
    ```bash
-   pip install requests ics pytz
+   pip install requests ics pytz pyyaml
    ```
 
 ## Usage
