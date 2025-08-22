@@ -102,7 +102,7 @@ def parse_date_range(start_date_str, end_date_str):
             # Approximate year as 365 days
             end_date = start_date + timedelta(days=number * 365)
             
-        return start_date_str, end_date.strftime('%m-%d-%Y')
+        return start_date.strftime('%m-%d-%Y'), end_date.strftime('%m-%d-%Y')
     else:
         # Parse as MM-DD-YYYY
         end_date = datetime.strptime(end_date_str, '%m-%d-%Y').date()
