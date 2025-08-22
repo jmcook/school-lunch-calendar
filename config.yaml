@@ -1,0 +1,16 @@
+# School Lunch Calendar Configuration
+
+# API Configuration
+district_id: "c48c6d9c-9ad9-eb11-a2c4-ae34736f1064"
+building_id: "816d4352-8ada-eb11-a2c4-babb11d0075f"
+
+# Default date range (used when not specified in command line)
+# Use relative durations like '1m' (1 month), '2w' (2 weeks), or '5d' (5 days)
+default_start_date: "1m"
+default_end_date: "1m"
+
+# Output configuration
+output_file: "school_lunch_menu.ics"
+
+# API settings
+api_base_url: "https://api.linqconnect.com/api/FamilyMenu"

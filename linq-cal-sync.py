@@ -8,15 +8,39 @@ import pytz
 
 import argparse
 import re
+import yaml
 from datetime import datetime, timedelta
 
 # Parse command line arguments
 parser = argparse.ArgumentParser(description='Fetch school lunch menu from LinqConnect API and generate ICS calendar file.')
-parser.add_argument('--start-date', required=True, help='Start date in MM-DD-YYYY format or relative duration (e.g., 1m, 2w, 5d)')
-parser.add_argument('--end-date', required=True, help='End date in MM-DD-YYYY format or relative duration (e.g., 1m, 2w, 5d)')
-parser.add_argument('--building-id', required=True, help='Building ID for the school')
-parser.add_argument('--district-id', required=True, help='District ID for the school')
+parser.add_argument('--start-date', help='Start date in MM-DD-YYYY format or relative duration (e.g., 1m, 2w, 5d)')
+parser.add_argument('--end-date', help='End date in MM-DD-YYYY format or relative duration (e.g., 1m, 2w, 5d)')
+parser.add_argument('--building-id', help='Building ID for the school')
+parser.add_argument('--district-id', help='District ID for the school')
+parser.add_argument('--config', default='config.yaml', help='Path to YAML configuration file')
 args = parser.parse_args()
+
+# Load configuration from YAML file
+try:
+    with open(args.config, 'r') as config_file:
+        config = yaml.safe_load(config_file)
+except FileNotFoundError:
+    print(f"Configuration file {args.config} not found.")
+    exit(1)
+except yaml.YAMLError as e:
+    print(f"Error parsing YAML configuration: {e}")
+    exit(1)
+
+# Use command line arguments if provided, otherwise fall back to config file
+start_date = args.start_date or config.get('default_start_date')
+end_date = args.end_date or config.get('default_end_date')
+building_id = args.building_id or config.get('building_id')
+district_id = args.district_id or config.get('district_id')
+
+# Validate required configuration
+if not all([start_date, end_date, building_id, district_id]):
+    print("Error: Missing required configuration. Please provide all values via command line or config file.")
+    exit(1)
 
 
 def parse_date_range(start_date_str, end_date_str):
@@ -74,11 +98,7 @@ def parse_date_range(start_date_str, end_date_str):
     return start_date_str, end_date_str
 
 # Parse and validate date range
-start_date, end_date = parse_date_range(args.start_date, args.end_date)
-
-# Use other command line arguments
-building_id = args.building_id
-district_id = args.district_id
+start_date, end_date = parse_date_range(start_date, end_date)
 
 # Define US Eastern Timezone
 eastern_tz = pytz.timezone("America/New_York")
